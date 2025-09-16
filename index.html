@@ -105,14 +105,16 @@
         let total = 0;
 
         products.forEach(product => {
-            message += `- ${product.title} (${product.price}€/m²)\n`;
+            message += `- ${product.title} (${product.price}$/m²)\n`;
             total += parseFloat(product.price);
         });
 
-        message += `\nTotal estimado: ${total}€\n\n`;
+        message += `\nTotal estimado: ${total}$\n\n`;
         message += "Por favor, ayúdenme a finalizar mi compra.";
 
-        const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+        
+        const whatsappURL = `https://wa.me/+5493512505333?text=${encodeURIComponent(message)}`;
+// Reemplaza 549XXXXXXXXX por tu número, por ejemplo: 5493511234567
         window.open(whatsappURL, '_blank');
     });
 </script>
