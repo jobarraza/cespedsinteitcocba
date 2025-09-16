@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Venta de Césped Sintético</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Agrega esta línea -->
+</head>
+<body>
+
+<header>
+    <h1>Venta de Césped Sintético</h1>
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Productos</a>
+        <a href="#">Servicios</a>
+        <a href="#">Contacto</a>
+    </nav>
+</header>
+
+<section class="container">
+    <!-- Producto 1 
+    <div class="product">
+        <img src="https://placehold.co/600x400/8bc34a/ffffff?text=Césped+Clásico" onerror="this.src='https://images.unsplash.com/photo-1600080873574-66345017644a'" alt="Césped Sintético Verde Clásico">
+        <div class="product-details">
+            <h3>Césped Sintético Verde Clásico</h3>
+            <div class="price" data-price="25">25 $/m²</div>
+            <button class="add-to-cart">Agregar al carrito</button>
+        </div>
+    </div>-->
+
+    <div class="product">
+    <a href="Sintetico_clasico.html">
+        <img src="https://placehold.co/600x400/8bc34a/ffffff?text=Césped+Clásico" onerror="this.src='https://images.unsplash.com/photo-1600080873574-66345017644a'" alt="Césped Sintético Verde Clásico">
+    </a>
+    <div class="product-details">
+        <h3>
+            <a href="Sintetico_clasico.html">Césped Sintético Verde Clásico</a>
+        </h3>
+        <div class="price" data-price="25">25 $/m²</div>
+        <button class="add-to-cart" data-product="clasico">Agregar al carrito</button>
+    </div>
+</div>
+    <!-- Producto 2 -->
+    <div class="product">
+        <img src="https://placehold.co/600x400/9ccc65/ffffff?text=Césped+Jardín" onerror="this.src='https://images.unsplash.com/photo-1612327350194-1b1d0aaea5e3'" alt="Césped Para Jardín">
+        <div class="product-details">
+            <h3>Césped Para Jardín</h3>
+            <div class="price" data-price="35">35 $/m²</div>
+            <button class="add-to-cart">Agregar al carrito</button>
+        </div>
+    </div>
+    <!-- Producto 3 -->
+    <div class="product">
+        <img src="https://placehold.co/600x400/7cb342/ffffff?text=Césped+deportivo" onerror="this.src='https://images.unsplash.com/photo-1627915573719-204104c8109d'" alt="Césped Deportivo">
+        <div class="product-details">
+            <h3>Césped Deportivo</h3>
+            <div class="price" data-price="45">45 $/m²</div>
+            <button class="add-to-cart">Agregar al carrito</button>
+        </div>
+    </div>
+    <!-- Producto 4 -->
+    <div class="product">
+        <img src="https://placehold.co/600x400/aed581/ffffff?text=Césped+Premium" onerror="this.src='https://images.unsplash.com/photo-1549419137-023a8ed3f61b'" alt="Césped Premium">
+        <div class="product-details">
+            <h3>Césped Sintético Premium</h3>
+            <div class="price" data-price="55">55 $/m²</div>
+            <button class="add-to-cart">Agregar al carrito</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Venta de Césped Sintético. Todos los derechos reservados.</p>
+</footer>
+
+<button id="whatsapp-btn" style="display: none;">
+    <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M12.04 2C7.38 2 3.5 5.8 3.5 10.42c0 1.98.66 3.82 1.8 5.3L3 21.5l6.09-1.68c1.37.75 2.92 1.15 4.45 1.15 4.66 0 8.54-3.8 8.54-8.42S16.7 2 12.04 2zM12.04 19.86c-1.28 0-2.5-.35-3.55-.96l-.25-.15-2.58.68.69-2.56-.17-.26c-.63-1.07-.96-2.3-.96-3.59 0-3.9 3.1-7.07 7.07-7.07s7.07 3.17 7.07 7.07c0 3.9-3.17 7.07-7.07 7.07zm3.17-5.96c-.18-.09-1.07-.53-1.24-.6s-.29-.09-.42.09c-.13.18-.5.6-.61.73-.13.12-.25.14-.46.07-.2-.07-.86-.31-1.64-1.01-.6-.53-1.01-1.2-1.13-1.42-.12-.22-.01-.2-.09-.2-.07-.07-.18-.09-.29-.09h-.13c-.11-.01-.23.05-.33.15-.09.1-.34.33-.48.48-.15.15-.31.18-.42.09-.12-.09-.49-.18-1.01-.29-.53-.12-1.01-.06-1.1.08-.09.15-.09.29 0 .44s.48.56.56.67c.08.1.18.15.29.28.11.12.78 1.19 1.88 1.63.1.04.18.06.28.06s.2-.01.27-.04c.08-.04.28-.12.38-.19.1-.07.6-.28.68-.42.07-.13.07-.25.04-.32z"/>
+    </svg>
+</button>
+
+<script>
+    const whatsappBtn = document.getElementById('whatsapp-btn');
+    const products = [];
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.closest('.product');
+            const title = product.querySelector('h3').innerText;
+            const price = product.querySelector('.price').dataset.price;
+            
+            // Add product to the cart
+            products.push({ title, price });
+            
+            // Show the WhatsApp button if it's the first product
+            if (products.length === 1) {
+                whatsappBtn.style.display = 'flex';
+            }
+        });
+    });
+
+    whatsappBtn.addEventListener('click', () => {
+        let message = "Hola, me gustaría hacer un pedido de los siguientes productos:\n\n";
+        let total = 0;
+
+        products.forEach(product => {
+            message += `- ${product.title} (${product.price}€/m²)\n`;
+            total += parseFloat(product.price);
+        });
+
+        message += `\nTotal estimado: ${total}€\n\n`;
+        message += "Por favor, ayúdenme a finalizar mi compra.";
+
+        const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
+    });
+</script>
+
+</body>
+</html>
