@@ -544,3 +544,26 @@ cart-modal {
     opacity: 1;
     z-index: 1;
 }
+
+@media (max-width: 600px) {
+    header {
+        font-size: 1.2em;
+        padding: 12px 4px;
+    }
+    .slider-container {
+        height: 220px;
+        min-height: 180px;
+        max-height: 260px;
+    }
+    .slider-container img,
+    .slider-container img.active {
+        height: 220px;
+        min-height: 180px;
+        max-height: 260px;
+        width: 100vw;
+        object-fit: cover;
+    }
+    body {
+        padding-top: 0;
+    }
+}
