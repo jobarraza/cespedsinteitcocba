@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="gallery-container">
+    <div class="slider-container">
+        <a>
+            <img src="media/Image 17 sept 2025, 11_49_35 a.m..png">
+             <img src="media/Image 17 sept 2025, 11_49_35 a.m..png">
+              <img src="media/Image 17 sept 2025, 11_49_35 a.m..png">
+               <img src="media/Image 17 sept 2025, 11_49_35 a.m..png">
+                <img src="media/Image 17 sept 2025, 11_49_35 a.m..png">
+
+        </a>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const slider = document.querySelector('.slider-container');
+    const images = document.querySelectorAll('.slider-container img');
+    let currentIndex = 0;
+    const totalImages = images.length;
+    
+    // Función para mover el slider a la siguiente imagen
+    function moveSlider() {
+        currentIndex++;
+        if (currentIndex >= totalImages) {
+            currentIndex = 0; // Vuelve al inicio
+        }
+        const offset = -currentIndex * 100; // Mueve el slider por el 100% de su ancho
+        slider.style.transform = `translateX(${offset}%)`;
+    }
+
+    // Mueve el slider automáticamente cada 3 segundos
+    setInterval(moveSlider, 3000); 
+});
+</script>
+</body>
+</html>

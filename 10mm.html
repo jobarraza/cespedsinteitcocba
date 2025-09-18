@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Césped Sintético 10mm</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Césped Sintético 10mm</h1>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="./productos.html">Productos</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+     <button id="cart-btn" class="cart-btn" title="Ver carrito">
+        🛒
+    </button>
+</header>
+
+<!-- Carrito como ventana modal -->
+<div id="cart-modal" class="cart-modal">
+    <div class="cart-modal-content">
+        <span id="close-cart" class="close-cart">&times;</span>
+        <h2>Carrito de compras</h2>
+        <ul id="cart-items"></ul>
+        <div id="cart-total"></div>
+        <button id="checkout-btn" style="display:none;">Finalizar compra por WhatsApp</button>
+    </div>
+</div>
+
+<section class="container">
+    <section class="container">
+  <div class="gallery">
+    <div class="gallery-thumbs">
+      <img src="https://acdn-us.mitiendanube.com/stores/001/601/723/products/1-e3449a983e8efb208317545787413541-1024-1024.webp" alt="Miniatura 1" class="thumb selected">
+      <img src="https://acdn-us.mitiendanube.com/stores/001/601/723/products/diseno-sin-titulo-24-cf4b6f95d786ea161417483816239686-480-0.webp" alt="Miniatura 2" class="thumb">
+      <img src="https://acdn-us.mitiendanube.com/stores/001/601/723/products/diseno-sin-titulo-23-5ec044d25a5e96d30917483816232533-640-0.webp" alt="Miniatura 3" class="thumb">
+      <img src="https://acdn-us.mitiendanube.com/stores/001/601/723/products/diseno-sin-titulo-21-4d8e2064b36d8e8b3d17483816257800-640-0.webp" alt="Miniatura 3" class="thumb">
+    </div>
+    
+        <div class="gallery-main">
+      <img id="main-image" src="https://acdn-us.mitiendanube.com/stores/001/601/723/products/1-e3449a983e8efb208317545787413541-1024-1024.webp" alt="Imagen principal">
+    </div>
+  </div>
+  
+    <div class="product 10mm" data-stock="10">
+        <a href="10mm.html">
+            <img src="https://acdn-us.mitiendanube.com/stores/001/601/723/products/1-e3449a983e8efb208317545787413541-1024-1024.webp" alt="Césped Sintético 10mm">
+        </a>
+    <!-- Cotizador de metros cuadrados -->
+<div class="cotizador">
+    <h3>Calculá los metros cuadrados que necesitás</h3>
+    <label>
+        Ancho (m):
+        <input type="number" id="cotizador-ancho" min="0" step="0.01" placeholder="Ej: 2.5">
+    </label>
+    <label>
+        Alto (m):
+        <input type="number" id="cotizador-alto" min="0" step="0.01" placeholder="Ej: 4">
+    </label>
+    <button id="cotizador-calcular">Calcular</button>
+    <button id="cotizador-agregar" style="display:none; margin-left:10px;">Agregar mejor compra al carrito</button>
+    <div id="cotizador-resultado"></div>
+</div>
+        <div class="product-details">
+            <h3>Césped sintético 10mm </h3>
+            <div class="price" data-price="115.933,80">115.933,80 $/m²</div>
+            <div class="product-sizes">
+                <button class="add-to-cart" data-size="5">5m²</button>
+                <button class="add-to-cart" data-size="10">10m²</button>
+                <button class="add-to-cart" data-size="15">15m²</button>
+                <button class="add-to-cart" data-size="20">20m²</button>
+                <button class="add-to-cart" data-size="25">25m²</button>
+                <button class="add-to-cart" data-size="30">30m²</button>
+                <button class="add-to-cart" data-size="35">35m²</button>
+                <button class="add-to-cart" data-size="40">40m²</button>
+                <button class="add-to-cart" data-size="45">45m²</button>
+                <button class="add-to-cart" data-size="50">Rollo completo (50m²)</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Césped Sintético</p>
+</footer>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartItems = document.getElementById('cart-items');
+const cartTotal = document.getElementById('cart-total');
+const checkoutBtn = document.getElementById('checkout-btn');
+
+const cartBtn = document.getElementById('cart-btn');
+const cartModal = document.getElementById('cart-modal');
+const closeCart = document.getElementById('close-cart');
+
+cartBtn.addEventListener('click', () => {
+    cartModal.style.display = 'block';
+    updateCart();
+});
+closeCart.addEventListener('click', () => {
+    cartModal.style.display = 'none';
+});
+window.addEventListener('click', (e) => {
+    if (e.target === cartModal) cartModal.style.display = 'none';
+});
+
+function updateCart() {
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, idx) => {
+        const subtotal = item.priceNum * item.size;
+        const li = document.createElement('li');
+        li.textContent = `${item.title} - ${item.size}m² - ${item.price} $/m² - Subtotal: ${subtotal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}`;
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Quitar';
+        removeBtn.onclick = () => {
+            cart.splice(idx, 1);
+            updateCart();
+        };
+        li.appendChild(removeBtn);
+        cartItems.appendChild(li);
+        total += subtotal;
+    });
+    cartTotal.textContent = `Total estimado: ${total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}`;
+    checkoutBtn.style.display = cart.length ? 'block' : 'none';
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.product-sizes .add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.closest('.product');
+            const title = product.querySelector('h3').innerText;
+            const priceStr = product.querySelector('.price').dataset.price;
+            const priceNum = parseFloat(priceStr.replace('.', '').replace(',', '.'));
+            const size = parseInt(button.dataset.size, 10);
+
+            cart.push({ title, price: priceStr, priceNum, size });
+            updateCart();
+        });
+    });
+    updateCart();
+});
+
+checkoutBtn.addEventListener('click', () => {
+    let message = "Hola, me gustaría hacer un pedido de los siguientes productos:\n\n";
+    let total = 0;
+    cart.forEach(item => {
+        const subtotal = item.priceNum * item.size;
+        message += `- ${item.title} (${item.size}m²) (${item.price}$/m²) - Subtotal: ${subtotal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}\n`;
+        total += subtotal;
+    });
+    message += `\nTotal estimado: ${total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}\n\n`;
+    message += "Por favor, ayúdenme a finalizar mi compra.";
+    const whatsappURL = `https://wa.me/+5493512505333?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
+});
+
+// Galería de imágenes
+document.querySelectorAll('.gallery-thumbs .thumb').forEach(thumb => {
+    thumb.addEventListener('click', function() {
+        document.querySelectorAll('.gallery-thumbs .thumb').forEach(t => t.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('main-image').src = this.src;
+    });
+});
+const mainImg = document.getElementById('main-image');
+mainImg.addEventListener('click', function() {
+    this.classList.toggle('zoomed');
+});
+
+// Cotizador de metros cuadrados mejorado: usa los tamaños de botón disponibles
+let cotizadorUltimaSugerencia = null;
+
+document.getElementById('cotizador-calcular').addEventListener('click', function() {
+    const ancho = parseFloat(document.getElementById('cotizador-ancho').value);
+    const alto = parseFloat(document.getElementById('cotizador-alto').value);
+    const resultado = document.getElementById('cotizador-resultado');
+    const btnAgregar = document.getElementById('cotizador-agregar');
+    if (isNaN(ancho) || isNaN(alto) || ancho <= 0 || alto <= 0) {
+        resultado.textContent = "Por favor, ingresa valores válidos para ancho y alto.";
+        resultado.style.color = "#c62828";
+        btnAgregar.style.display = "none";
+        cotizadorUltimaSugerencia = null;
+        return;
+    }
+    const metros = (ancho * alto).toFixed(2);
+    const SIZES = [50, 45, 40, 35, 30, 25, 20, 15, 10, 5]; // Botones disponibles
+    let metrosNum = parseFloat(metros);
+
+    let sizesToAdd = [];
+let found = false;
+for (let i = SIZES.length - 1; i >= 0; i--) {
+    if (metrosNum <= SIZES[i]) {
+        sizesToAdd.push(SIZES[i]);
+        found = true;
+        break;
+    }
+}
+if (!found) {
+    let restante = metrosNum;
+    for (let i = 0; i < SIZES.length; i++) {
+        while (restante >= SIZES[i]) {
+            sizesToAdd.push(SIZES[i]);
+            restante -= SIZES[i];
+        }
+    }
+    // Si queda un resto menor al menor tamaño, sumar un botón más del menor tamaño
+    if (restante > 0) {
+        sizesToAdd.push(SIZES[SIZES.length - 1]);
+    }
+}
+
+    // Contar cuántos rollos completos de 50m² hay
+    const rollos = sizesToAdd.filter(s => s === 50).length;
+    const otros = sizesToAdd.filter(s => s !== 50);
+
+    // Mensaje sugerencia
+    let sugerencia = "";
+    if (rollos > 0 && otros.length > 0) {
+        sugerencia = `La mejor compra sería <b>${rollos} rollo(s) completo(s) de 50 m²</b> y `;
+        sugerencia += otros.map(s => `<b>${s} m²</b>`).join(' + ');
+        sugerencia += " (usando los tamaños disponibles).";
+    } else if (rollos > 0 && otros.length === 0) {
+        sugerencia = `La mejor compra sería <b>${rollos} rollo(s) completo(s) de 50 m²</b>.`;
+    } else if (otros.length > 0) {
+        sugerencia = `La mejor compra sería `;
+        sugerencia += otros.map(s => `<b>${s} m²</b>`).join(' + ');
+        sugerencia += " (usando los tamaños disponibles).";
+    } else {
+        sugerencia = `No se pudo calcular una combinación adecuada.`;
+    }
+
+    resultado.innerHTML = `Necesitás <b>${metros}</b> m² de césped sintético.<br>${sugerencia}`;
+    resultado.style.color = "#388e3c";
+    btnAgregar.style.display = "inline-block";
+
+    // Guarda la sugerencia para el botón de agregar
+    cotizadorUltimaSugerencia = { sizesToAdd };
+});
+
+document.getElementById('cotizador-agregar').addEventListener('click', function() {
+    if (!cotizadorUltimaSugerencia) return;
+    const product = document.querySelector('.product');
+    const title = product.querySelector('h3').innerText;
+    const priceStr = product.querySelector('.price').dataset.price;
+    const priceNum = parseFloat(priceStr.replace('.', '').replace(',', '.'));
+
+    // Agrega los tamaños sugeridos
+    cotizadorUltimaSugerencia.sizesToAdd.forEach(size => {
+        cart.push({ title, price: priceStr, priceNum, size: size });
+    });
+    updateCart();
+    cartModal.style.display = 'block';
+});
+</script>
+
+</body>
+</html>
